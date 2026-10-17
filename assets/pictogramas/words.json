@@ -1,0 +1,1037 @@
+{
+"b": [
+{
+"w": "BOCA",
+"syl": [
+"BO",
+"CA"
+],
+"pic": "w_b_0",
+"page": 11
+},
+{
+"w": "BEBÉ",
+"syl": [
+"BE",
+"BÉ"
+],
+"pic": "w_b_1",
+"page": 11
+},
+{
+"w": "BOTA",
+"syl": [
+"BO",
+"TA"
+],
+"pic": "w_b_2",
+"page": 12
+},
+{
+"w": "LOBO",
+"syl": [
+"LO",
+"BO"
+],
+"pic": "w_b_3",
+"page": 12
+},
+{
+"w": "CABALLO",
+"syl": [
+"CA",
+"BA",
+"LLO"
+],
+"pic": "w_b_4",
+"page": 13
+}
+],
+"c": [
+{
+"w": "CASA",
+"syl": [
+"CA",
+"SA"
+],
+"pic": "w_c_0",
+"page": 10
+},
+{
+"w": "CAMA",
+"syl": [
+"CA",
+"MA"
+],
+"pic": "w_c_1",
+"page": 10
+},
+{
+"w": "QUESO",
+"syl": [
+"QUE",
+"SO"
+],
+"pic": "w_c_2",
+"page": 11
+},
+{
+"w": "COPA",
+"syl": [
+"CO",
+"PA"
+],
+"pic": "w_c_3",
+"page": 11
+},
+{
+"w": "CUNA",
+"syl": [
+"CU",
+"NA"
+],
+"pic": "w_c_4",
+"page": 12
+}
+],
+"ch": [
+{
+"w": "CHINO",
+"syl": [
+"CHI",
+"NO"
+],
+"pic": "w_ch_0",
+"page": 12
+},
+{
+"w": "CHAPA",
+"syl": [
+"CHA",
+"PA"
+],
+"pic": "w_ch_1",
+"page": 12
+},
+{
+"w": "COCHE",
+"syl": [
+"CO",
+"CHE"
+],
+"pic": "w_ch_2",
+"page": 13
+},
+{
+"w": "CHICLE",
+"syl": [
+"CHI",
+"CLE"
+],
+"pic": "w_ch_3",
+"page": 13
+},
+{
+"w": "FICHA",
+"syl": [
+"FI",
+"CHA"
+],
+"pic": "w_ch_4",
+"page": 14
+},
+{
+"w": "NOCHE",
+"syl": [
+"NO",
+"CHE"
+],
+"pic": "w_ch_5",
+"page": 14
+}
+],
+"d": [
+{
+"w": "DADO",
+"syl": [
+"DA",
+"DO"
+],
+"pic": "w_d_0",
+"page": 12
+},
+{
+"w": "DEDO",
+"syl": [
+"DE",
+"DO"
+],
+"pic": "w_d_1",
+"page": 12
+},
+{
+"w": "NIDO",
+"syl": [
+"NI",
+"DO"
+],
+"pic": "w_d_2",
+"page": 13
+},
+{
+"w": "DUCHA",
+"syl": [
+"DU",
+"CHA"
+],
+"pic": "w_d_3",
+"page": 13
+},
+{
+"w": "DINERO",
+"syl": [
+"DI",
+"NE",
+"RO"
+],
+"pic": "w_d_4",
+"page": 14
+}
+],
+"f": [
+{
+"w": "FOTO",
+"syl": [
+"FO",
+"TO"
+],
+"pic": "w_f_0",
+"page": 11
+},
+{
+"w": "FARO",
+"syl": [
+"FA",
+"RO"
+],
+"pic": "w_f_1",
+"page": 11
+},
+{
+"w": "SOFÁ",
+"syl": [
+"SO",
+"FÁ"
+],
+"pic": "w_f_2",
+"page": 12
+},
+{
+"w": "CAFÉ",
+"syl": [
+"CA",
+"FÉ"
+],
+"pic": "w_f_3",
+"page": 12
+},
+{
+"w": "FARAÓN",
+"syl": [
+"FA",
+"RA",
+"ÓN"
+],
+"pic": "w_f_4",
+"page": 13
+}
+],
+"g": [
+{
+"w": "GATO",
+"syl": [
+"GA",
+"TO"
+],
+"pic": "w_g_0",
+"page": 12
+},
+{
+"w": "GOTA",
+"syl": [
+"GO",
+"TA"
+],
+"pic": "w_g_1",
+"page": 12
+},
+{
+"w": "GAFAS",
+"syl": [
+"GA",
+"FAS"
+],
+"pic": "w_g_2",
+"page": 13
+},
+{
+"w": "GORRO",
+"syl": [
+"GO",
+"RRO"
+],
+"pic": "w_g_3",
+"page": 13
+}
+],
+"j": [
+{
+"w": "AJO",
+"syl": [
+"A",
+"JO"
+],
+"pic": "w_j_0",
+"page": 12
+},
+{
+"w": "GENIO",
+"syl": [
+"GE",
+"NIO"
+],
+"pic": "w_j_1",
+"page": 12
+},
+{
+"w": "OJO",
+"syl": [
+"O",
+"JO"
+],
+"pic": "w_j_2",
+"page": 13
+},
+{
+"w": "GIRASOL",
+"syl": [
+"GI",
+"RA",
+"SOL"
+],
+"pic": "w_j_3",
+"page": 13
+},
+{
+"w": "GEMELOS",
+"syl": [
+"GE",
+"ME",
+"LOS"
+],
+"pic": "w_j_4",
+"page": 14
+},
+{
+"w": "JIRAFA",
+"syl": [
+"JI",
+"RA",
+"FA"
+],
+"pic": "w_j_5",
+"page": 14
+}
+],
+"k": [
+{
+"w": "KARATE",
+"syl": [
+"KA",
+"RA",
+"TE"
+],
+"pic": "w_k_0",
+"page": 12
+},
+{
+"w": "KIWI",
+"syl": [
+"KI",
+"WI"
+],
+"pic": "w_k_1",
+"page": 12
+},
+{
+"w": "KOALA",
+"syl": [
+"KO",
+"A",
+"LA"
+],
+"pic": "w_k_2",
+"page": 13
+}
+],
+"l": [
+{
+"w": "LUPA",
+"syl": [
+"LU",
+"PA"
+],
+"pic": "w_l_0",
+"page": 12
+},
+{
+"w": "LATA",
+"syl": [
+"LA",
+"TA"
+],
+"pic": "w_l_1",
+"page": 12
+},
+{
+"w": "PALA",
+"syl": [
+"PA",
+"LA"
+],
+"pic": "w_l_2",
+"page": 13
+},
+{
+"w": "PALO",
+"syl": [
+"PA",
+"LO"
+],
+"pic": "w_l_3",
+"page": 13
+},
+{
+"w": "PELOTA",
+"syl": [
+"PE",
+"LO",
+"TA"
+],
+"pic": "w_l_4",
+"page": 14
+}
+],
+"ll": [
+{
+"w": "LLAVE",
+"syl": [
+"LLA",
+"VE"
+],
+"pic": "w_ll_0",
+"page": 12
+},
+{
+"w": "LLENO",
+"syl": [
+"LLE",
+"NO"
+],
+"pic": "w_ll_1",
+"page": 12
+},
+{
+"w": "LLUVIA",
+"syl": [
+"LLU",
+"VIA"
+],
+"pic": "w_ll_2",
+"page": 13
+},
+{
+"w": "LLORA",
+"syl": [
+"LLO",
+"RA"
+],
+"pic": "w_ll_3",
+"page": 13
+},
+{
+"w": "BOTELLA",
+"syl": [
+"BO",
+"TE",
+"LLA"
+],
+"pic": "w_ll_4",
+"page": 14
+}
+],
+"m": [
+{
+"w": "MAMÁ",
+"syl": [
+"MA",
+"MÁ"
+],
+"pic": "w_m_0",
+"page": 12
+},
+{
+"w": "MANO",
+"syl": [
+"MA",
+"NO"
+],
+"pic": "w_m_1",
+"page": 12
+},
+{
+"w": "MONO",
+"syl": [
+"MO",
+"NO"
+],
+"pic": "w_m_2",
+"page": 13
+},
+{
+"w": "CAMA",
+"syl": [
+"CA",
+"MA"
+],
+"pic": "w_m_3",
+"page": 13
+},
+{
+"w": "CAMIÓN",
+"syl": [
+"CA",
+"MI",
+"ÓN"
+],
+"pic": "w_m_4",
+"page": 14
+}
+],
+"n": [
+{
+"w": "NIDO",
+"syl": [
+"NI",
+"DO"
+],
+"pic": "w_n_0",
+"page": 12
+},
+{
+"w": "NUDO",
+"syl": [
+"NU",
+"DO"
+],
+"pic": "w_n_1",
+"page": 12
+},
+{
+"w": "LUNA",
+"syl": [
+"LU",
+"NA"
+],
+"pic": "w_n_2",
+"page": 13
+},
+{
+"w": "NIÑA",
+"syl": [
+"NI",
+"ÑA"
+],
+"pic": "w_n_3",
+"page": 13
+},
+{
+"w": "MONO",
+"syl": [
+"MO",
+"NO"
+],
+"pic": "w_n_4",
+"page": 14
+},
+{
+"w": "MANO",
+"syl": [
+"MA",
+"NO"
+],
+"pic": "w_n_5",
+"page": 14
+}
+],
+"nn": [
+{
+"w": "PIÑA",
+"syl": [
+"PI",
+"ÑA"
+],
+"pic": "w_nn_0",
+"page": 12
+},
+{
+"w": "PAÑO",
+"syl": [
+"PA",
+"ÑO"
+],
+"pic": "w_nn_1",
+"page": 12
+},
+{
+"w": "CAÑA",
+"syl": [
+"CA",
+"ÑA"
+],
+"pic": "w_nn_2",
+"page": 13
+},
+{
+"w": "NIÑA",
+"syl": [
+"NI",
+"ÑA"
+],
+"pic": "w_nn_3",
+"page": 13
+},
+{
+"w": "OTOÑO",
+"syl": [
+"O",
+"TO",
+"ÑO"
+],
+"pic": "w_nn_4",
+"page": 14
+}
+],
+"p": [
+{
+"w": "PIPÍ",
+"syl": [
+"PI",
+"PÍ"
+],
+"pic": "w_p_0",
+"page": 12
+},
+{
+"w": "PIPA",
+"syl": [
+"PI",
+"PA"
+],
+"pic": "w_p_1",
+"page": 12
+},
+{
+"w": "PAPÁ",
+"syl": [
+"PA",
+"PÁ"
+],
+"pic": "w_p_2",
+"page": 13
+},
+{
+"w": "PUPA",
+"syl": [
+"PU",
+"PA"
+],
+"pic": "w_p_3",
+"page": 13
+},
+{
+"w": "AUPA",
+"syl": [
+"A",
+"U",
+"PA"
+],
+"pic": "w_p_4",
+"page": 14
+}
+],
+"r": [
+{
+"w": "PERA",
+"syl": [
+"PE",
+"RA"
+],
+"pic": "w_r_0",
+"page": 12
+},
+{
+"w": "ARO",
+"syl": [
+"A",
+"RO"
+],
+"pic": "w_r_1",
+"page": 12
+},
+{
+"w": "PURO",
+"syl": [
+"PU",
+"RO"
+],
+"pic": "w_r_2",
+"page": 13
+},
+{
+"w": "CARA",
+"syl": [
+"CA",
+"RA"
+],
+"pic": "w_r_3",
+"page": 13
+},
+{
+"w": "ARAÑA",
+"syl": [
+"A",
+"RA",
+"ÑA"
+],
+"pic": "w_r_4",
+"page": 14
+}
+],
+"rr": [
+{
+"w": "RIZO",
+"syl": [
+"RI",
+"ZO"
+],
+"pic": "w_rr_0",
+"page": 11
+},
+{
+"w": "PERRO",
+"syl": [
+"PE",
+"RRO"
+],
+"pic": "w_rr_1",
+"page": 11
+},
+{
+"w": "BURRO",
+"syl": [
+"BU",
+"RRO"
+],
+"pic": "w_rr_2",
+"page": 12
+},
+{
+"w": "REMO",
+"syl": [
+"RE",
+"MO"
+],
+"pic": "w_rr_3",
+"page": 12
+},
+{
+"w": "RATA",
+"syl": [
+"RA",
+"TA"
+],
+"pic": "w_rr_4",
+"page": 13
+}
+],
+"s": [
+{
+"w": "SAPO",
+"syl": [
+"SA",
+"PO"
+],
+"pic": "w_s_0",
+"page": 11
+},
+{
+"w": "SETA",
+"syl": [
+"SE",
+"TA"
+],
+"pic": "w_s_1",
+"page": 11
+},
+{
+"w": "SILLA",
+"syl": [
+"SI",
+"LLA"
+],
+"pic": "w_s_2",
+"page": 12
+},
+{
+"w": "SOPA",
+"syl": [
+"SO",
+"PA"
+],
+"pic": "w_s_3",
+"page": 12
+},
+{
+"w": "SEMÁFORO",
+"syl": [
+"SE",
+"MÁ",
+"FO",
+"RO"
+],
+"pic": "w_s_4",
+"page": 13
+}
+],
+"t": [
+{
+"w": "PATO",
+"syl": [
+"PA",
+"TO"
+],
+"pic": "w_t_0",
+"page": 12
+},
+{
+"w": "PITO",
+"syl": [
+"PI",
+"TO"
+],
+"pic": "w_t_1",
+"page": 12
+},
+{
+"w": "TOPO",
+"syl": [
+"TO",
+"PO"
+],
+"pic": "w_t_2",
+"page": 13
+},
+{
+"w": "TÍA",
+"syl": [
+"TÍ",
+"A"
+],
+"pic": "w_t_3",
+"page": 13
+},
+{
+"w": "TOMATE",
+"syl": [
+"TO",
+"MA",
+"TE"
+],
+"pic": "w_t_4",
+"page": 14
+},
+{
+"w": "TAPA",
+"syl": [
+"TA",
+"PA"
+],
+"pic": "w_t_5",
+"page": 14
+}
+],
+"v": [
+{
+"w": "VACA",
+"syl": [
+"VA",
+"CA"
+],
+"pic": "w_v_0",
+"page": 11
+},
+{
+"w": "VELA",
+"syl": [
+"VE",
+"LA"
+],
+"pic": "w_v_1",
+"page": 11
+},
+{
+"w": "UVA",
+"syl": [
+"U",
+"VA"
+],
+"pic": "w_v_2",
+"page": 12
+},
+{
+"w": "HUEVO",
+"syl": [
+"HUE",
+"VO"
+],
+"pic": "w_v_3",
+"page": 12
+},
+{
+"w": "PAVO",
+"syl": [
+"PA",
+"VO"
+],
+"pic": "w_v_4",
+"page": 13
+},
+{
+"w": "LLAVE",
+"syl": [
+"LLA",
+"VE"
+],
+"pic": "w_v_5",
+"page": 13
+}
+],
+"vocales": [
+{
+"w": "AVIÓN",
+"syl": [
+"A",
+"VIÓN"
+],
+"pic": "w_vocales_0",
+"page": 14
+},
+{
+"w": "UVAS",
+"syl": [
+"U",
+"VAS"
+],
+"pic": "w_vocales_1",
+"page": 14
+},
+{
+"w": "ELEFANTE",
+"syl": [
+"E",
+"LE",
+"FAN",
+"TE"
+],
+"pic": "w_vocales_2",
+"page": 15
+},
+{
+"w": "OVEJA",
+"syl": [
+"O",
+"VE",
+"JA"
+],
+"pic": "w_vocales_3",
+"page": 16
+},
+{
+"w": "IGLÚ",
+"syl": [
+"I",
+"GLÚ"
+],
+"pic": "w_vocales_4",
+"page": 17
+}
+],
+"z": [
+{
+"w": "CEJA",
+"syl": [
+"CE",
+"JA"
+],
+"pic": "w_z_0",
+"page": 12
+},
+{
+"w": "ZORRO",
+"syl": [
+"ZO",
+"RRO"
+],
+"pic": "w_z_1",
+"page": 12
+},
+{
+"w": "ZUMO",
+"syl": [
+"ZU",
+"MO"
+],
+"pic": "w_z_2",
+"page": 13
+},
+{
+"w": "CEBRA",
+"syl": [
+"CE",
+"BRA"
+],
+"pic": "w_z_3",
+"page": 13
+},
+{
+"w": "TAZA",
+"syl": [
+"TA",
+"ZA"
+],
+"pic": "w_z_4",
+"page": 14
+},
+{
+"w": "ZAPATO",
+"syl": [
+"ZA",
+"PA",
+"TO"
+],
+"pic": "w_z_5",
+"page": 14
+}
+]
+}

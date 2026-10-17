@@ -1,0 +1,633 @@
+<meta charset="utf-8">
+<title>Abecedario de Boquitas</title>
+<meta name="description" content="Posiciones de la boca para cada letra, sílaba y palabra, con juegos sencillos. Láminas de Comunicar_Nos / Siembra Estrellas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" media="print" onload="this.media='all'">
+<style>
+/* Layout: calm, one-focus screens. Therapist screens (alphabet, letter menu, settings) scroll;
+   child screens (sílabas, palabras, juegos) fill the viewport: back + progress dots / one thing / fixed controls. */
+:root{
+  --bg:#F2F5FA; --surface:#FFFFFF; --ink:#17203A; --muted:#58637D; --line:#D6DEEA;
+  --accent:#2B66D3; --accent-ink:#FFFFFF; --frame:#E9EEF5; --paper:#FFFFFF;
+  --ok:#1E8A4C; --ok-soft:#DDF3E5;
+  --shadow:0 1px 2px rgba(23,32,58,.06),0 8px 22px rgba(23,32,58,.07);
+  --f-letter:"Andika","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-ui:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1220; --surface:#171D2D; --ink:#ECF0F8; --muted:#A0AAC0; --line:#2A3247;
+    --accent:#7FA7F5; --accent-ink:#0E1220; --frame:#222A3C; --paper:#F7F7F4;
+    --ok:#5BD08B; --ok-soft:#173826;
+    --shadow:0 1px 2px rgba(0,0,0,.35); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1220; --surface:#171D2D; --ink:#ECF0F8; --muted:#A0AAC0; --line:#2A3247;
+  --accent:#7FA7F5; --accent-ink:#0E1220; --frame:#222A3C; --paper:#F7F7F4;
+  --ok:#5BD08B; --ok-soft:#173826;
+  --shadow:0 1px 2px rgba(0,0,0,.35); color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:var(--f-ui);font-size:16px;line-height:1.5;padding-inline:16px;padding-block:0 40px;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:10px}
+h1,h2{text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:1080px;margin-inline:auto}
+.narrow{max-width:560px;margin-inline:auto}
+
+/* per-letter colour (the arrow colour each lámina uses) */
+.lc{--tint:color-mix(in oklab,var(--c) 15%,var(--surface));--edge:color-mix(in oklab,var(--c) 40%,var(--line));--lk:color-mix(in oklab,var(--c) 48%,var(--ink))}
+
+/* ---------- shared controls ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:9px 16px;font-weight:700;font-size:.95rem;min-height:48px}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn svg{width:20px;height:20px;flex:none}
+.icon-btn{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:none}
+.icon-btn svg{width:24px;height:24px}
+.round{width:64px;height:64px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center}
+.round svg{width:30px;height:30px}
+.round.go{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.round[disabled],.icon-btn[disabled]{opacity:.28;cursor:default}
+.seg{display:inline-flex;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px;gap:2px}
+.seg button{border:0;background:transparent;border-radius:999px;padding:9px 16px;font-weight:700;font-size:.95rem;color:var(--muted);min-height:44px}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+
+/* ---------- home ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:24px 18px}
+.top h1{font-family:var(--f-letter);font-weight:700;font-size:clamp(1.8rem,5.5vw,2.7rem);line-height:1.05}
+.top h1 span{color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:12px}
+.tile{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 8px 8px;border-radius:var(--r);background:var(--surface);background:var(--tint);border:1px solid var(--edge)}
+.tile:hover{box-shadow:var(--shadow)}
+.tile .L{font-family:var(--f-letter);font-weight:700;font-size:2.1rem;line-height:1;color:var(--lk);display:flex;align-items:baseline;gap:4px}
+.tile .L small{font-size:.62em;font-weight:400}
+.tile img,.tile .ph{width:100%;aspect-ratio:10/9;object-fit:cover;border-radius:10px;display:block}
+.tile .ph{display:grid;place-items:center;background:var(--surface);border:1px dashed var(--edge);color:var(--muted);font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.tile .star{position:absolute;top:6px;right:9px;font-weight:700;color:var(--muted)}
+
+/* ---------- therapist pages (letter menu, note, settings) ---------- */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:14px}
+.menu-hero{display:flex;align-items:center;justify-content:center;gap:20px;padding-block:8px 26px}
+.menu-hero .big{font-family:var(--f-letter);font-weight:700;font-size:clamp(5rem,22vw,8rem);line-height:.9;color:var(--lk);display:flex;align-items:baseline;gap:.06em}
+.menu-hero .big small{font-size:.55em;font-weight:400}
+.menu-hero img{width:min(170px,40vw);aspect-ratio:10/9;object-fit:cover;border-radius:16px;border:3px solid var(--c)}
+.choices{display:flex;flex-direction:column;gap:14px}
+.choice{display:flex;align-items:center;gap:16px;width:100%;text-align:left;padding:16px 18px;border-radius:var(--r);background:var(--tint);border:2px solid var(--edge);font-family:var(--f-letter);font-weight:700;font-size:1.7rem;color:var(--ink);min-height:84px}
+.choice:hover{border-color:var(--c)}
+.choice .ico{width:52px;height:52px;border-radius:14px;background:var(--surface);display:grid;place-items:center;color:var(--lk);flex:none}
+.choice .ico svg{width:30px;height:30px}
+.notelink{margin-top:22px;display:flex;justify-content:center}
+.page-title{font-family:var(--f-letter);font-weight:700;font-size:1.8rem;margin-block:6px 18px}
+.section{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.section h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.section p{max-width:62ch}
+.section a{color:var(--accent)}
+.notebox{border-left:6px solid var(--c)}
+
+/* ---------- child screens: fill the viewport ---------- */
+.full{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;flex-direction:column;gap:10px;
+  padding:calc(env(safe-area-inset-top,0px) + 10px) 16px calc(env(safe-area-inset-bottom,0px) + 16px)}
+.tb{display:grid;grid-template-columns:52px 1fr 52px;align-items:center;gap:12px}
+.dots{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
+.dots i{width:12px;height:12px;border-radius:50%;border:2px solid var(--edge);display:block}
+.dots i.done{background:var(--edge);border-color:var(--edge)}
+.dots i.now{background:var(--c);border-color:var(--c);transform:scale(1.25)}
+.main{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2.6vh,24px);touch-action:pan-y}
+.ctrl{display:grid;grid-template-columns:64px 1fr 64px;align-items:center;gap:10px;width:100%;max-width:560px;margin-inline:auto}
+.ctrl .mid{display:flex;justify-content:center;gap:10px}
+@media (max-width:420px){ .ctrl .mid .btn span{display:none} .ctrl .mid .btn{width:56px;padding:0} }
+
+/* mouths in sequence: consonant → vowel */
+.mouths{--reserve:210px;display:flex;align-items:center;justify-content:center;gap:clamp(6px,2vw,18px);width:100%;max-width:980px}
+.fr{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.fr img{width:100%;aspect-ratio:10/9;object-fit:cover;border-radius:16px;background:var(--frame);display:block;border:3px solid transparent}
+.fr b{font-family:var(--f-letter);font-size:clamp(1rem,3vw,1.4rem);color:var(--muted)}
+.fr.on img{border-color:var(--c)}
+.mouths .fr{max-width:max(120px,min(380px,calc((100vh - var(--reserve) - 80px) * 1.1)))}
+.mouths.one .fr{max-width:max(150px,min(460px,calc((100vh - var(--reserve) - 80px) * 1.1)))}
+.ar{flex:none;width:clamp(22px,5vw,40px);height:clamp(22px,5vw,40px);color:var(--c)}
+@media (max-aspect-ratio: 4/5){
+  .mouths{flex-direction:column;gap:2px}
+  .mouths .ar{transform:rotate(90deg);width:26px;height:26px}
+  .mouths .fr,.mouths.one .fr{flex:none;max-width:none;
+    width:min(78vw,calc(((87vh - var(--reserve) - (var(--n) - 1) * 28px) / var(--n) - 34px) / .9));
+    width:min(78vw,calc(((87dvh - var(--reserve) - (var(--n) - 1) * 28px) / var(--n) - 34px) / .9))}
+}
+.bigsyl{font-family:var(--f-letter);font-weight:700;font-size:clamp(3rem,min(16vw,12vh),7.5rem);line-height:1;color:var(--lk)}
+.hint{color:var(--muted);font-size:.95rem;text-align:center;min-height:1.4em}
+
+/* words */
+.pic{background:var(--paper);border-radius:22px;border:1px solid var(--line);padding:clamp(10px,2vw,18px);display:grid;place-items:center}
+.pic img{display:block;width:min(64vw,44vh,340px);height:min(64vw,44vh,340px);object-fit:contain}
+.word{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:.1em .25em;font-family:var(--f-letter);font-weight:700;font-size:clamp(2.4rem,min(11vw,8vh),4.6rem);line-height:1.1}
+.word .s{color:var(--muted);padding:0 .12em;border-radius:12px}
+.word .s.t{color:var(--lk)}
+.word .s.cur{background:var(--tint);box-shadow:inset 0 -5px 0 var(--c)}
+.word .sep{color:var(--line)}
+.word.small{font-size:clamp(1.8rem,min(8vw,6vh),3rem)}
+
+/* games */
+.gq{font-weight:700;color:var(--muted);font-size:1.05rem;text-align:center}
+.opts{display:flex;justify-content:center;gap:clamp(10px,3vw,22px);width:100%;max-width:640px}
+.opt{flex:1 1 0;min-width:0;max-width:220px;border-radius:20px;border:3px solid var(--edge);background:var(--surface);padding:10px;display:grid;place-items:center;transition:opacity .2s}
+.opt.txt{font-family:var(--f-letter);font-weight:700;font-size:clamp(2.2rem,9vw,3.6rem);color:var(--lk);min-height:96px}
+.opt img{width:100%;aspect-ratio:10/9;object-fit:cover;border-radius:12px;display:block}
+.opt.ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.no{opacity:.3}
+.mouths.game{--reserve:330px}
+.feedback{font-family:var(--f-letter);font-weight:700;font-size:1.5rem;min-height:1.6em;color:var(--ok);text-align:center}
+.feedback.soft{color:var(--muted);font-size:1.2rem}
+.games{display:flex;flex-direction:column;gap:14px}
+.end{display:flex;flex-direction:column;align-items:center;gap:22px}
+.end h2{font-family:var(--f-letter);font-size:clamp(2.4rem,9vw,4rem);color:var(--lk)}
+.stars{display:flex;gap:10px;color:var(--c)}
+.stars svg{width:clamp(34px,9vw,54px);height:clamp(34px,9vw,54px)}
+.end .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+
+@media (prefers-reduced-motion: reduce){ .opt{transition:none} .dots i.now{transform:none} .fade{animation:none!important} }
+.fade{animation:fade .35s ease}
+@keyframes fade{from{opacity:.15}to{opacity:1}}
+</style>
+
+<div id="app"></div>
+
+<script>
+const IMG = /*__IMAGES__*/{};
+const PIC = /*__PICS__*/{};
+const WORDSRC = /*__WORDS__*/{};
+
+/* ================= data: letters & syllables ================= */
+const VOW = ['a','e','i','o','u'];
+const UP = s => s.toUpperCase();
+const VC = '#F0A500';
+const S = (t, imgs, labels, say) => ({t, imgs, labels, say: say === undefined ? t.toLowerCase() : say});
+const std = (L, key) => VOW.map(v => S(L + UP(v), [key + '_0', key + '_' + v], [L, UP(v)]));
+const vowel = v => ({id:v, U:UP(v), l:v, col:VC, kind:'vowel', thumb:'voc_' + v,
+  build: () => ({post:null, items:[S(UP(v), ['voc_' + v], [UP(v)])]})});
+const cons = (id, U, l, col, extra = {}) => ({id, U, l, col, thumb:id + '_0',
+  build: () => Object.assign({post:id + '_0', items:std(U, id)}, extra)});
+
+const LETTERS = [
+  vowel('a'),
+  cons('b','B','b','#C98BDD'),
+  {id:'c', U:'C', l:'c', col:'#5FACE6', thumb:'c_0', regional:true, build: r => {
+    const ce = r === 'la' ? 's' : 'z';
+    return {post:'c_0', items:[
+      S('CA',['c_0','c_a'],['C','A']), S('CE',[ce+'_0',ce+'_e'],['C','E']), S('CI',[ce+'_0',ce+'_i'],['C','I']),
+      S('CO',['c_0','c_o'],['C','O']), S('CU',['c_0','c_u'],['C','U'])],
+      note: r === 'la'
+        ? 'CA, CO y CU suenan como K y usan la posición de la lámina C/Q. CE y CI suenan como S en México y Latinoamérica, así que usan la posición de la S.'
+        : 'CA, CO y CU suenan como K y usan la posición de la lámina C/Q. CE y CI se dicen con la lengua entre los dientes (España), como en la lámina de la Z.'};
+  }},
+  cons('ch','CH','ch','#0A9FE0'),
+  cons('d','D','d','#8A909C'),
+  vowel('e'),
+  cons('f','F','f','#E3262B'),
+  {id:'g', U:'G', l:'g', col:'#50545E', thumb:'g_0', build: () => ({post:'g_0', items:[
+      S('GA',['g_0','g_a'],['G','A']), S('GE',['j_0','j_e'],['G','E']), S('GI',['j_0','j_i'],['G','I']),
+      S('GO',['g_0','g_o'],['G','O']), S('GU',['g_0','g_u'],['G','U'])],
+    extra:{items:[S('GUE',['g_0','g_e'],['GU','E']), S('GUI',['g_0','g_i'],['GU','I'])]},
+    note:'GA, GO y GU tienen sonido suave. GE y GI suenan como JE y JI, por eso usan la posición de la J (el material las agrupa así: JE/GE, JI/GI). Al final de las sílabas aparecen GUE y GUI, que tienen el sonido suave con E e I.'})},
+  {id:'h', U:'H', l:'h', col:'#8E9BB5', kind:'mute', thumb:null, ph:'muda', build: () => ({post:null,
+    items: VOW.map(v => S('H' + UP(v), ['voc_' + v], [UP(v)], v)),
+    note:'La H no suena. En HA, HE, HI, HO y HU la boca se pone igual que en la vocal sola, así que se muestran las boquitas de las vocales.'})},
+  vowel('i'),
+  cons('j','J','j','#B2307C'),
+  cons('k','K','k','#7FC0EC'),
+  cons('l','L','l','#7434A8'),
+  cons('ll','LL','ll','#E2CB12'),
+  cons('m','M','m','#F06A1E'),
+  cons('n','N','n','#2D2E33'),
+  cons('nn','Ñ','ñ','#1E9A43'),
+  vowel('o'),
+  cons('p','P','p','#3F7FD0'),
+  {id:'q', U:'Q', l:'q', col:'#5FACE6', thumb:'c_0', build: () => ({post:'c_0',
+    items:[S('QUE',['c_0','c_e'],['QU','E']), S('QUI',['c_0','c_i'],['QU','I'])],
+    note:'La Q siempre va con U y solo forma QUE y QUI. Suena como la C de CA, CO, CU, por eso usa la misma posición (lámina C/Q).'})},
+  cons('r','R','r','#B49565', {note:'R suave, como en «pera» o «loro». Al inicio de palabra («rosa», «ratón») suena fuerte: para eso usa la RR.'}),
+  cons('rr','RR','rr','#8A3A10', {note:'R fuerte, como en «perro», y también al inicio de palabra, como en «rosa» o «rata».'}),
+  cons('s','S','s','#E02BC4'),
+  cons('t','T','t','#74BD3C'),
+  vowel('u'),
+  cons('v','V','v','#C98BDD'),
+  {id:'w', U:'W', l:'w', col:'#3FA79B', kind:'adapted', thumb:'voc_u', build: () => ({post:'voc_u',
+    items: ['a','e','i','o'].map(v => S('W' + UP(v), ['voc_u','voc_' + v], ['U', UP(v)], 'u' + v)),
+    note:'La W no viene en el material. En español suena casi como U seguida de la vocal («wafle», «web», «kiwi»), así que se armó con las boquitas de la U y de cada vocal.'})},
+  {id:'x', U:'X', l:'x', col:'#6E6BD8', kind:'adapted', thumb:null, ph:'ks', build: () => ({post:null,
+    items: VOW.map(v => S('X' + UP(v), ['k_0','s_0','s_' + v], ['K','S', UP(v)], null)),
+    note:'La X no viene en el material. Aquí se arma con el sonido KS, como en «taxi»: posición de la K, luego de la S y luego la vocal. En algunas palabras suena distinto: como J en «México» o como S en «Xochimilco».'})},
+  {id:'y', U:'Y', l:'y', col:'#E2CB12', kind:'adapted', thumb:'ll_0', build: () => ({post:'ll_0',
+    items: VOW.map(v => S('Y' + UP(v), ['ll_0','ll_' + v], ['Y', UP(v)])),
+    note:'La Y no tiene lámina propia. En casi todo el mundo hispanohablante YA, YE, YI, YO, YU suenan igual que LLA, LLE, LLI, LLO, LLU, así que se usan las boquitas de la LL.'})},
+  {id:'z', U:'Z', l:'z', col:'#3FC64B', thumb: r => r === 'la' ? 's_0' : 'z_0', regional:true, build: r => r === 'la'
+    ? {post:'s_0', items: VOW.map(v => S('Z' + UP(v), ['s_0','s_' + v], ['Z', UP(v)])),
+       note:'En México y Latinoamérica la Z suena como S, así que se usan las boquitas de la S. En España se dice con la lengua entre los dientes; cambia la pronunciación en Ajustes para ver esa posición.'}
+    : {post:'z_0', items: VOW.map(v => S('Z' + UP(v), ['z_0','z_' + v], ['Z', UP(v)])),
+       note:'En España la Z se dice con la lengua entre los dientes. Con E e I casi siempre se escribe CE y CI; la lámina original las agrupa así: ZA, CE, CI, ZO, ZU.'}},
+];
+const BY = Object.fromEntries(LETTERS.map(L => [L.id, L]));
+
+/* ================= data: words (from each lámina) ================= */
+// which words each letter shows: a lámina key (all its words) or {lámina: [words]}
+const WL = {
+  a:{vocales:['AVIÓN']}, e:{vocales:['ELEFANTE']}, i:{vocales:['IGLÚ']}, o:{vocales:['OVEJA']}, u:{vocales:['UVAS']},
+  b:'b', c:{c:['CASA','CAMA','COPA','CUNA'], z:['CEJA','CEBRA']}, ch:{ch:['CHAPA','COCHE','CHICLE','FICHA','NOCHE']},
+  d:'d', f:'f', g:{g:['GATO','GOTA','GAFAS','GORRO'], j:['GENIO','GIRASOL','GEMELOS']}, j:{j:['AJO','OJO','JIRAFA']},
+  k:'k', l:'l', ll:'ll', m:'m', n:'n', nn:'nn', p:'p', q:{c:['QUESO']}, r:'r', rr:'rr', s:'s', t:'t', v:'v',
+  w:{k:['KIWI']}, z:{z:['ZORRO','ZUMO','TAZA','ZAPATO']}
+};
+const strip = s => s.replace(/[ÁÉÍÓÚÜ]/g, c => 'AEIOUU'['ÁÉÍÓÚÜ'.indexOf(c)]);
+function isTarget(id, syl, idx){
+  const T = strip(syl), L = BY[id];
+  if (L.kind === 'vowel') return T === L.U;
+  switch (id) {
+    case 'c': return /^C[AEIOU]/.test(T);
+    case 'g': return /^G[AEIOU]/.test(T);
+    case 'l': return /^L(?!L)/.test(T);
+    case 'n': return /^N/.test(T);
+    case 'q': return /^QU/.test(T);
+    case 'r': return /^R(?!R)/.test(T) && idx > 0;
+    case 'rr': return /^RR/.test(T) || (/^R/.test(T) && idx === 0);
+    default: return T.startsWith(L.U);
+  }
+}
+function itemFor(id, syl){
+  let key = strip(syl);
+  if (id === 'rr' && !key.startsWith('RR')) key = 'R' + key;
+  return allItems(id).find(it => it.t === key) || null;
+}
+function wordsFor(id){
+  const spec = WL[id]; if (!spec) return [];
+  const src = typeof spec === 'string' ? {[spec]: null} : spec;
+  const out = [];
+  for (const [k, names] of Object.entries(src)) {
+    for (const w of (WORDSRC[k] || [])) if (!names || names.includes(w.w)) out.push(w);
+  }
+  return out;
+}
+// one word = picture screen, then one screen per target syllable
+function wordSteps(id, w){
+  const steps = [{type:'pic'}];
+  w.syl.forEach((s, j) => { if (isTarget(id, s, j)) { const it = itemFor(id, s); if (it) steps.push({type:'syl', j, it}); } });
+  return steps;
+}
+
+/* ================= state ================= */
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+};
+let region = store.get('boq-region') === 'es' ? 'es' : 'la';
+let nOpts = store.get('boq-opts') === '3' ? 3 : 2;
+let st = {v:'home', id:null, i:0, k:0};
+let game = null;
+
+const built = id => BY[id].build(region);
+const allItems = id => { const b = built(id); return b.items.concat(b.extra ? b.extra.items : []); };
+const gamePool = id => BY[id].kind === 'vowel' ? VOW.map(v => built(v).items[0]) : built(id).items;
+
+/* ================= icons ================= */
+const svg = (p, fill) => `<svg viewBox="0 0 24 24" ${fill ? 'fill="currentColor"' : 'fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"'} aria-hidden="true">${p}</svg>`;
+const ICON = {
+  back: svg('<path d="M15 5l-7 7 7 7"/>'),
+  next: svg('<path d="M9 5l7 7-7 7"/>'),
+  close: svg('<path d="M6 6l12 12M18 6L6 18"/>'),
+  gear: svg('<circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M4.2 7.5l2.1 1.2M17.7 15.3l2.1 1.2M4.2 16.5l2.1-1.2M17.7 8.7l2.1-1.2"/><circle cx="12" cy="12" r="7"/>'),
+  info: svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>'),
+  play: svg('<path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/>', true),
+  sound: svg('<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>'),
+  syl: svg('<rect x="2.5" y="7" width="8" height="10" rx="2"/><rect x="13.5" y="7" width="8" height="10" rx="2"/><path d="M10.5 12h3"/>'),
+  pic: svg('<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M4 18l5-5 4 4 3-3 4 4"/>'),
+  play2: svg('<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z"/>'),
+  star: svg('<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z"/>', true),
+  m2t: svg('<path d="M3 9c2-2 5-2 7 0-2 2-5 2-7 0z"/><path d="M12 9h3"/><path d="M17 6.5h4M19 6.5V12"/><path d="M5 15h14M5 19h9"/>'),
+  t2m: svg('<path d="M3 6.5h4M5 6.5V12"/><path d="M9 9h3"/><path d="M14 9c2-2 5-2 7 0-2 2-5 2-7 0z"/><path d="M5 15h14M5 19h9"/>'),
+  arrow: '<svg class="ar" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 10h11V5l8 7-8 7v-5H3z"/></svg>'
+};
+
+/* ================= helpers ================= */
+const $ = s => document.querySelector(s);
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const altFor = (it, k) => `Boca para ${it.t}: ${it.labels[k]}`;
+const frames = (it, on = -1) => it.imgs.map((k, i) =>
+  `<span class="fr${i === on ? ' on' : ''}"><img src="${IMG[k]}" alt="${altFor(it, i)}" draggable="false"><b>${it.labels[i]}</b></span>`).join(ICON.arrow);
+const mouths = (it, cls = '') => `<div class="mouths${it.imgs.length === 1 ? ' one' : ''} ${cls}" id="row" style="--n:${it.imgs.length}">${frames(it)}</div>`;
+const dots = (n, i) => `<div class="dots" role="img" aria-label="${i + 1} de ${n}">${Array.from({length:n}, (_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}"></i>`).join('')}</div>`;
+const topbar = (back, n, i) => `<div class="tb"><button type="button" class="icon-btn" data-act="${back}" aria-label="Volver">${ICON.back}</button>${n ? dots(n, i) : '<span></span>'}<span></span></div>`;
+function seg(name, opts, val){
+  return `<div class="seg" role="group">${opts.map(([v, t]) => `<button type="button" data-act="${name}" data-val="${v}" aria-pressed="${String(v) === String(val)}">${t}</button>`).join('')}</div>`;
+}
+function setHash(){
+  const h = [st.v, st.id, st.v === 'syl' || st.v === 'words' ? st.i : null, st.v === 'words' ? st.k : null].filter(x => x !== null && x !== undefined).join('-');
+  try { history.replaceState(null, '', st.v === 'home' ? location.pathname + location.search : '#' + h); } catch(e){}
+}
+function go(v, id = st.id, i = 0, k = 0){
+  stopMotion(); try { speechSynthesis.cancel(); } catch(e){}
+  st = {v, id, i, k}; setHash(); render();
+}
+
+/* ================= screens ================= */
+function vHome(){
+  const tiles = LETTERS.map(L => {
+    const th = typeof L.thumb === 'function' ? L.thumb(region) : L.thumb;
+    const pic = th ? `<img src="${IMG[th]}" alt="" loading="lazy">` : `<span class="ph">${L.ph || ''}</span>`;
+    return `<button type="button" class="tile lc" style="--c:${L.col}" data-act="letter" data-id="${L.id}" aria-label="Letra ${L.U}">
+      ${L.kind === 'adapted' ? '<span class="star" aria-hidden="true">*</span>' : ''}<span class="L">${L.U}<small>${L.l}</small></span>${pic}</button>`;
+  }).join('');
+  return `<div class="wrap">
+    <header class="top"><h1>Abecedario <span>de Boquitas</span></h1>
+      <button type="button" class="icon-btn" data-act="settings" aria-label="Ajustes">${ICON.gear}</button></header>
+    <main class="grid">${tiles}</main></div>`;
+}
+
+function vLetter(){
+  const L = BY[st.id], b = built(st.id), hasWords = wordsFor(st.id).length > 0;
+  const pic = b.post ? `<img src="${IMG[b.post]}" alt="Posición de la boca para la ${L.U}">`
+            : L.kind === 'vowel' ? `<img src="${IMG['voc_' + L.id]}" alt="Boca para la ${L.U}">` : '';
+  const choice = (act, ico, label) => `<button type="button" class="choice" data-act="${act}"><span class="ico">${ico}</span>${label}</button>`;
+  return `<div class="narrow lc" style="--c:${L.col}">
+    <div class="bar"><button type="button" class="btn" data-act="home">${ICON.back}Abecedario</button>
+      ${b.note ? `<button type="button" class="btn" data-act="note">${ICON.info}Nota</button>` : ''}</div>
+    <div class="menu-hero"><div class="big" aria-label="Letra ${L.U}">${L.U}<small>${L.l}</small></div>${pic}</div>
+    <div class="choices">
+      ${choice('syl', ICON.syl, L.kind === 'vowel' ? 'Boquita' : 'Sílabas')}
+      ${hasWords ? choice('words', ICON.pic, 'Palabras') : ''}
+      ${choice('games', ICON.play2, 'Jugar')}
+    </div></div>`;
+}
+
+function vNote(){
+  const L = BY[st.id], b = built(st.id);
+  return `<div class="narrow lc" style="--c:${L.col}">
+    <div class="bar"><button type="button" class="btn" data-act="letter" data-id="${L.id}">${ICON.back}Letra ${L.U}</button></div>
+    <h1 class="page-title">Nota sobre la ${L.U}</h1>
+    <div class="section notebox"><p>${b.note}</p></div>
+    ${L.regional ? `<div class="section"><h2>Pronunciación</h2>${seg('region', [['la','México y Latinoamérica'],['es','España']], region)}</div>` : ''}
+  </div>`;
+}
+
+function vSettings(){
+  return `<div class="narrow">
+    <div class="bar"><button type="button" class="btn" data-act="home">${ICON.back}Abecedario</button></div>
+    <h1 class="page-title">Ajustes</h1>
+    <div class="section"><h2>Pronunciación</h2>
+      <p>Cambia las boquitas de la C (CE, CI) y de la Z.</p>${seg('region', [['la','México y Latinoamérica'],['es','España']], region)}</div>
+    <div class="section"><h2>Opciones en los juegos</h2>
+      <p>Cuántas respuestas ve el niño en cada pregunta.</p>${seg('opts', [[2,'2 opciones'],[3,'3 opciones']], nOpts)}</div>
+    <div class="section"><h2>Sobre el material</h2>
+      <p>Las fotos de las bocas y las palabras vienen de <a href="https://siembraestrellas.blogspot.com/2020/01/material-reeditado-presentacion-de-los.html" target="_blank" rel="noopener">«Introducción a los fonemas»</a> (versión sin gestos) de Comunicar_Nos, coordinado por Belinda Haro Castilla, blog Siembra Estrellas.</p>
+      <p>Pictogramas de Sergio Palao, ARASAAC (Gobierno de Aragón). Otras imágenes del material: soyvisual.org, freepik y pixabay.</p>
+      <p>Licencia Creative Commons BY-NC-SA: uso solo no comercial, citando la fuente y compartiendo con la misma licencia.</p>
+      <p>Las letras con asterisco (W, X, Y) no tienen lámina propia y se armaron con boquitas de otras letras.</p></div>
+  </div>`;
+}
+
+/* --- sílabas: one syllable per screen --- */
+function vSyl(){
+  const L = BY[st.id], list = allItems(st.id), it = list[st.i];
+  const canMove = it.imgs.length > 1, canSay = !!it.say && 'speechSynthesis' in window;
+  return `<div class="full lc" style="--c:${L.col}">
+    ${topbar('letter', list.length > 1 ? list.length : 0, st.i)}
+    <div class="main" data-swipe="1">${mouths(it)}<div class="bigsyl">${it.t}</div><p class="hint" id="hint" aria-live="polite"></p></div>
+    <div class="ctrl">
+      <button type="button" class="round" data-act="prev" aria-label="Anterior" ${st.i === 0 ? 'disabled' : ''}>${ICON.back}</button>
+      <div class="mid">
+        ${canMove ? `<button type="button" class="btn primary" data-act="move">${ICON.play}<span>Movimiento</span></button>` : ''}
+        ${canSay ? `<button type="button" class="btn" data-act="say" aria-label="Escuchar">${ICON.sound}<span>Escuchar</span></button>` : ''}
+      </div>
+      <button type="button" class="round go" data-act="next" aria-label="Siguiente" ${st.i === list.length - 1 ? 'disabled' : ''}>${ICON.next}</button>
+    </div></div>`;
+}
+
+/* --- palabras: picture screen, then each target syllable --- */
+function wordHTML(w, id, cur = -1, small = false){
+  return `<div class="word${small ? ' small' : ''}" aria-label="${w.w}">${w.syl.map((s, j) =>
+    `<span class="s${isTarget(id, s, j) ? ' t' : ''}${j === cur ? ' cur' : ''}">${s}</span>`).join('<span class="sep" aria-hidden="true">·</span>')}</div>`;
+}
+function vWords(){
+  const L = BY[st.id], ws = wordsFor(st.id), w = ws[st.i], steps = wordSteps(st.id, w), s = steps[st.k];
+  const atStart = st.i === 0 && st.k === 0, atEnd = st.i === ws.length - 1 && st.k === steps.length - 1;
+  let body, mid = '';
+  if (s.type === 'pic') {
+    body = `<div class="pic"><img src="${PIC[w.pic]}" alt="${w.w}"></div>${wordHTML(w, st.id)}`;
+  } else {
+    body = `${wordHTML(w, st.id, s.j, true)}${mouths(s.it)}<p class="hint" id="hint" aria-live="polite"></p>`;
+    const canSay = !!s.it.say && 'speechSynthesis' in window;
+    mid = `${s.it.imgs.length > 1 ? `<button type="button" class="btn primary" data-act="move">${ICON.play}<span>Movimiento</span></button>` : ''}
+      ${canSay ? `<button type="button" class="btn" data-act="say" aria-label="Escuchar">${ICON.sound}<span>Escuchar</span></button>` : ''}`;
+  }
+  return `<div class="full lc" style="--c:${L.col}">
+    ${topbar('letter', ws.length > 1 ? ws.length : 0, st.i)}
+    <div class="main" data-swipe="1">${body}</div>
+    <div class="ctrl">
+      <button type="button" class="round" data-act="prev" aria-label="Anterior" ${atStart ? 'disabled' : ''}>${ICON.back}</button>
+      <div class="mid">${mid}</div>
+      <button type="button" class="round go" data-act="next" aria-label="Siguiente" ${atEnd ? 'disabled' : ''}>${ICON.next}</button>
+    </div></div>`;
+}
+
+/* --- juegos --- */
+function vGames(){
+  const L = BY[st.id];
+  const card = (act, ico, label) => `<button type="button" class="choice" data-act="${act}"><span class="ico">${ico}</span>${label}</button>`;
+  return `<div class="narrow lc" style="--c:${L.col}">
+    <div class="bar"><button type="button" class="btn" data-act="letter" data-id="${L.id}">${ICON.back}Letra ${L.U}</button></div>
+    <div class="menu-hero"><div class="big">${L.U}<small>${L.l}</small></div></div>
+    <div class="games">${card('g1', ICON.m2t, '¿Qué dice la boca?')}${card('g2', ICON.t2m, '¿Cuál es la boca?')}</div>
+  </div>`;
+}
+const ROUNDS = 5;
+function newGame(type){
+  const pool = gamePool(st.id), n = Math.min(nOpts, pool.length);
+  const rounds = []; let last = null;
+  for (let r = 0; r < ROUNDS; r++) {
+    let cands = pool.filter(it => it !== last); if (!cands.length) cands = pool;
+    const ans = cands[Math.floor(Math.random() * cands.length)]; last = ans;
+    const others = shuffle(pool.filter(it => it !== ans)).slice(0, n - 1);
+    rounds.push({ans, opts: shuffle([ans, ...others])});
+  }
+  game = {type, rounds, r:0, wrong:new Set(), solved:false};
+}
+const lastImg = it => it.imgs[it.imgs.length - 1];
+function vGame(){
+  const L = BY[st.id], g = game, rd = g.rounds[g.r];
+  let prompt, opts;
+  if (g.type === 1) {
+    prompt = `${mouths(rd.ans, 'game')}<p class="gq">¿Qué dice la boca?</p>`;
+    opts = rd.opts.map((it, k) => `<button type="button" class="opt txt${g.solved && it === rd.ans ? ' ok' : ''}${g.wrong.has(k) ? ' no' : ''}" data-act="pick" data-k="${k}" ${g.wrong.has(k) || g.solved ? 'disabled' : ''}>${it.t}</button>`).join('');
+  } else {
+    prompt = `<div class="bigsyl">${rd.ans.t}</div><p class="gq">¿Cuál es la boca?</p>`;
+    opts = rd.opts.map((it, k) => `<button type="button" class="opt${g.solved && it === rd.ans ? ' ok' : ''}${g.wrong.has(k) ? ' no' : ''}" data-act="pick" data-k="${k}" aria-label="Boca ${k + 1}" ${g.wrong.has(k) || g.solved ? 'disabled' : ''}><img src="${IMG[lastImg(it)]}" alt=""></button>`).join('');
+  }
+  return `<div class="full lc" style="--c:${L.col}">
+    ${topbar('games', ROUNDS, g.r)}
+    <div class="main">${prompt}<div class="opts">${opts}</div>
+      <p class="feedback${g.solved ? '' : ' soft'}" id="fb" aria-live="polite">${g.solved ? '¡Muy bien!' : g.wrong.size ? 'Intenta otra vez' : ''}</p></div>
+  </div>`;
+}
+function vEnd(){
+  const L = BY[st.id];
+  return `<div class="full lc" style="--c:${L.col}">
+    ${topbar('games', 0, 0)}
+    <div class="main"><div class="end"><h2>¡Terminaste!</h2>
+      <div class="stars">${ICON.star.repeat(ROUNDS)}</div>
+      <div class="row"><button type="button" class="btn primary" data-act="again">${ICON.play}Otra vez</button>
+        <button type="button" class="btn" data-act="games">Salir</button></div></div></div>
+  </div>`;
+}
+
+/* ================= render & events ================= */
+const VIEWS = {home:vHome, letter:vLetter, note:vNote, settings:vSettings, syl:vSyl, words:vWords, games:vGames, game:vGame, end:vEnd};
+const CHILD = new Set(['syl','words','game','end']);
+let lastView = null;
+function render(){
+  if (!VIEWS[st.v] || (st.v !== 'home' && st.v !== 'settings' && !BY[st.id])) st = {v:'home', id:null, i:0, k:0};
+  if ((st.v === 'game' || st.v === 'end') && !game) st.v = 'games';
+  if (st.v === 'words' && !wordsFor(st.id).length) st.v = 'letter';
+  $('#app').innerHTML = VIEWS[st.v]();
+  document.body.style.overflow = CHILD.has(st.v) ? 'hidden' : '';
+  wake(CHILD.has(st.v));
+  if (lastView !== st.v) window.scrollTo(0, 0);
+  lastView = st.v;
+}
+function step(d){
+  if (st.v === 'syl') {
+    const n = st.i + d; if (n < 0 || n >= allItems(st.id).length) return;
+    go('syl', st.id, n);
+  } else if (st.v === 'words') {
+    const ws = wordsFor(st.id); let {i, k} = st;
+    const steps = wordSteps(st.id, ws[i]);
+    if (d > 0) { if (k < steps.length - 1) k++; else if (i < ws.length - 1) { i++; k = 0; } else return; }
+    else { if (k > 0) k--; else if (i > 0) { i--; k = wordSteps(st.id, ws[i]).length - 1; } else return; }
+    go('words', st.id, i, k);
+  }
+}
+function currentItem(){
+  if (st.v === 'syl') return allItems(st.id)[st.i];
+  if (st.v === 'words') { const w = wordsFor(st.id)[st.i], s = wordSteps(st.id, w)[st.k]; return s.it || null; }
+  return null;
+}
+let pickTimer = null;
+function pick(k){
+  const g = game, rd = g.rounds[g.r];
+  if (g.solved || g.wrong.has(k)) return;
+  if (rd.opts[k] === rd.ans) {
+    g.solved = true; render();
+    clearTimeout(pickTimer);
+    pickTimer = setTimeout(() => {
+      if (st.v !== 'game' || game !== g) return;
+      if (g.r < ROUNDS - 1) { g.r++; g.solved = false; g.wrong = new Set(); render(); }
+      else go('end');
+    }, 1300);
+  } else { g.wrong.add(k); render(); }
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
+  const a = b.dataset.act;
+  switch (a) {
+    case 'home': go('home', null); break;
+    case 'settings': go('settings', null); break;
+    case 'letter': go('letter', b.dataset.id || st.id); break;
+    case 'note': go('note'); break;
+    case 'syl': go('syl', st.id, 0); break;
+    case 'words': go('words', st.id, 0, 0); break;
+    case 'games': clearTimeout(pickTimer); game = null; go('games'); break;
+    case 'g1': case 'g2': newGame(a === 'g1' ? 1 : 2); go('game'); break;
+    case 'again': newGame(game ? game.type : 1); go('game'); break;
+    case 'pick': pick(+b.dataset.k); break;
+    case 'prev': step(-1); break;
+    case 'next': step(1); break;
+    case 'move': { const it = currentItem(); if (it) playMotion(it); break; }
+    case 'say': { const it = currentItem(); if (it && it.say) speak(it.say); break; }
+    case 'region': region = b.dataset.val; store.set('boq-region', region); render(); break;
+    case 'opts': nOpts = +b.dataset.val; store.set('boq-opts', String(nOpts)); render(); break;
+  }
+});
+document.addEventListener('keydown', e => {
+  if (st.v !== 'syl' && st.v !== 'words') return;
+  if (e.key === 'ArrowRight') step(1); else if (e.key === 'ArrowLeft') step(-1);
+});
+(() => {
+  let x0 = null, y0 = null;
+  document.addEventListener('pointerdown', e => { if (e.target.closest('[data-swipe]')) { x0 = e.clientX; y0 = e.clientY; } else x0 = null; });
+  document.addEventListener('pointerup', e => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0, dy = e.clientY - y0; x0 = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) step(dx < 0 ? 1 : -1);
+  });
+})();
+
+/* ================= movement (one mouth after the other) ================= */
+let motionToken = 0;
+function stopMotion(){ motionToken++; }
+async function playMotion(it){
+  const token = ++motionToken, row = $('#row'), hint = $('#hint');
+  if (!row) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  row.classList.add('one'); row.style.setProperty('--n', 1);
+  for (let round = 0; round < 2; round++) {
+    for (let k = 0; k < it.imgs.length; k++) {
+      if (token !== motionToken || !row.isConnected) return;
+      row.innerHTML = `<span class="fr on${reduce ? '' : ' fade'}"><img src="${IMG[it.imgs[k]]}" alt="${altFor(it, k)}"><b>${it.labels[k]}</b></span>`;
+      if (hint) hint.textContent = `${k + 1} de ${it.imgs.length}`;
+      await wait(k === it.imgs.length - 1 ? 1300 : 1000);
+    }
+  }
+  if (token !== motionToken || !row.isConnected) return;
+  row.classList.toggle('one', it.imgs.length === 1); row.style.setProperty('--n', it.imgs.length);
+  row.innerHTML = frames(it);
+  if (hint) hint.textContent = '';
+}
+
+/* ================= speech ================= */
+let voices = [];
+function loadVoices(){ try { voices = speechSynthesis.getVoices() || []; } catch(e){ voices = []; } }
+if ('speechSynthesis' in window) { loadVoices(); try { speechSynthesis.addEventListener('voiceschanged', loadVoices); } catch(e){} }
+function pickVoice(){
+  const want = region === 'la' ? ['es-MX','es-US','es-419','es-CO','es-AR','es-CL','es-PE'] : ['es-ES'];
+  const norm = v => (v.lang || '').replace('_','-');
+  for (const w of want) { const v = voices.find(v => norm(v) === w); if (v) return v; }
+  return voices.find(v => norm(v).toLowerCase().startsWith('es')) || null;
+}
+function speak(text){
+  try {
+    const v = pickVoice(), hint = $('#hint');
+    if (voices.length && !v) { if (hint) hint.textContent = 'Este dispositivo no tiene una voz en español instalada.'; return; }
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = v ? v.lang : (region === 'la' ? 'es-MX' : 'es-ES');
+    if (v) u.voice = v;
+    u.rate = 0.75;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  } catch(e){}
+}
+
+/* ================= keep the screen on during practice ================= */
+let lock = null;
+async function wake(on){
+  try {
+    if (on && !lock && navigator.wakeLock) { lock = await navigator.wakeLock.request('screen'); lock.addEventListener('release', () => lock = null); }
+    else if (!on && lock) { const l = lock; lock = null; await l.release(); }
+  } catch(e){ lock = null; }
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && CHILD.has(st.v)) wake(true); });
+
+/* ================= start ================= */
+(function boot(){
+  let h = '';
+  try { h = decodeURIComponent(location.hash.slice(1)); } catch(e){}
+  const [v, id, i, k] = h.split('-');
+  if (v && VIEWS[v] && (v === 'settings' || BY[id])) st = {v, id: id || null, i: +i || 0, k: +k || 0};
+  else if (BY[v]) st = {v:'letter', id:v, i:0, k:0};
+  if (st.v === 'syl' && st.i >= allItems(st.id).length) st.i = 0;
+  if (st.v === 'words') { const ws = wordsFor(st.id); if (st.i >= ws.length) { st.i = 0; st.k = 0; } else if (st.k >= wordSteps(st.id, ws[st.i]).length) st.k = 0; }
+  render();
+})();
+</script>

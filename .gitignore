@@ -1,0 +1,6 @@
+# PDFs originales (se descargan con scripts/download_pdfs.sh)
+pdfs/
+
+__pycache__/
+*.pyc
+.DS_Store
