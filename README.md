@@ -7,7 +7,7 @@ Está pensada para niños autistas: cada pantalla muestra una sola cosa, los jue
 ## Qué tiene
 
 - **Abecedario**: las 30 letras del español, incluidas CH, LL, Ñ y RR.
-- **Sílabas**: una por pantalla. Se ve la boca de la consonante y luego la de la vocal (P → A = PA). Incluye un botón de movimiento y la voz del dispositivo.
+- **Sílabas**: una por pantalla. Se ve la boca de la consonante y luego la de la vocal (P → A = PA). Incluye un botón de movimiento y audios locales de voz femenina mexicana; si falta un audio, usa la voz del dispositivo como respaldo.
 - **Palabras**: 108 palabras del material, cada una con su pictograma. Primero sale el dibujo y luego la boquita de cada sílaba de esa letra.
 - **Juegos**: «¿Qué dice la boca?» y «¿Cuál es la boca?». Son 5 preguntas con 2 o 3 opciones y se pueden repetir las veces que haga falta.
 - **Ajustes**: pronunciación de México y Latinoamérica o de España (cambia CE, CI y Z) y número de opciones en los juegos.
@@ -33,7 +33,15 @@ En `assets/bocas`, `p_0.jpg` es la posición de la P y `p_a.jpg` a `p_u.jpg` son
 Después de editar `src/app.html`, regenera `index.html`:
 
 ```bash
-python3 scripts/build.py src/app.html assets/bocas assets/pictogramas index.html
+python3 scripts/build.py src/app.html assets/bocas assets/pictogramas index.html assets/audio
+```
+
+## Generar los audios de ElevenLabs
+
+La clave se lee de `ELEVENLABS_API_KEY` y nunca se guarda en el repositorio. La voz predeterminada es Jessica (femenina, cálida, brillante y juguetona), disponible en el plan gratuito de ElevenLabs.
+
+```bash
+ELEVENLABS_API_KEY=... python3 scripts/generate_audio.py assets/audio
 ```
 
 ## Volver a extraer las imágenes desde los PDFs
@@ -47,7 +55,7 @@ python3 scripts/extract_mouths.py pdfs assets/bocas
 python3 scripts/trim_frames.py assets/bocas
 python3 scripts/extract_words.py pdfs assets/pictogramas
 python3 scripts/clean_pictograms.py assets/pictogramas
-python3 scripts/build.py src/app.html assets/bocas assets/pictogramas index.html
+python3 scripts/build.py src/app.html assets/bocas assets/pictogramas index.html assets/audio
 ```
 
 ## Decisiones sobre el material

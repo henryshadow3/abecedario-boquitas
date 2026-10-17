@@ -162,6 +162,7 @@ p{margin:0}
 const IMG = /*__IMAGES__*/{};
 const PIC = /*__PICS__*/{};
 const WORDSRC = /*__WORDS__*/{};
+const AUDIO = /*__AUDIO__*/{};
 
 /* ================= data: letters & syllables ================= */
 const VOW = ['a','e','i','o','u'];
@@ -221,7 +222,7 @@ const LETTERS = [
     items: ['a','e','i','o'].map(v => S('W' + UP(v), ['voc_u','voc_' + v], ['U', UP(v)], 'u' + v)),
     note:'La W no viene en el material. En español suena casi como U seguida de la vocal («wafle», «web», «kiwi»), así que se armó con las boquitas de la U y de cada vocal.'})},
   {id:'x', U:'X', l:'x', col:'#6E6BD8', kind:'adapted', thumb:null, ph:'ks', build: () => ({post:null,
-    items: VOW.map(v => S('X' + UP(v), ['k_0','s_0','s_' + v], ['K','S', UP(v)], null)),
+    items: VOW.map(v => S('X' + UP(v), ['k_0','s_0','s_' + v], ['K','S', UP(v)], 'ks' + v)),
     note:'La X no viene en el material. Aquí se arma con el sonido KS, como en «taxi»: posición de la K, luego de la S y luego la vocal. En algunas palabras suena distinto: como J en «México» o como S en «Xochimilco».'})},
   {id:'y', U:'Y', l:'y', col:'#E2CB12', kind:'adapted', thumb:'ll_0', build: () => ({post:'ll_0',
     items: VOW.map(v => S('Y' + UP(v), ['ll_0','ll_' + v], ['Y', UP(v)])),
@@ -233,6 +234,7 @@ const LETTERS = [
        note:'En España la Z se dice con la lengua entre los dientes. Con E e I casi siempre se escribe CE y CI; la lámina original las agrupa así: ZA, CE, CI, ZO, ZU.'}},
 ];
 const BY = Object.fromEntries(LETTERS.map(L => [L.id, L]));
+const LETTER_SAY = {a:'a',b:'be',c:'ce',ch:'che',d:'de',e:'e',f:'efe',g:'ge',h:'hache',i:'i',j:'jota',k:'ka',l:'ele',ll:'elle',m:'eme',n:'ene',nn:'eñe',o:'o',p:'pe',q:'cu',r:'erre',rr:'erre fuerte',s:'ese',t:'te',u:'u',v:'uve',w:'doble u',x:'equis',y:'ye',z:'zeta'};
 
 /* ================= data: words (from each lámina) ================= */
 // which words each letter shows: a lámina key (all its words) or {lámina: [words]}
@@ -356,6 +358,7 @@ function vLetter(){
     <div class="bar"><button type="button" class="btn" data-act="home">${ICON.back}Abecedario</button>
       ${b.note ? `<button type="button" class="btn" data-act="note">${ICON.info}Nota</button>` : ''}</div>
     <div class="menu-hero"><div class="big" aria-label="Letra ${L.U}">${L.U}<small>${L.l}</small></div>${pic}</div>
+    <div style="display:flex;justify-content:center;margin:-10px 0 18px"><button type="button" class="btn" data-act="say-letter" aria-label="Escuchar letra ${L.U}">${ICON.sound}<span>Escuchar letra</span></button></div>
     <div class="choices">
       ${choice('syl', ICON.syl, L.kind === 'vowel' ? 'Boquita' : 'Sílabas')}
       ${hasWords ? choice('words', ICON.pic, 'Palabras') : ''}
@@ -392,7 +395,7 @@ function vSettings(){
 /* --- sílabas: one syllable per screen --- */
 function vSyl(){
   const L = BY[st.id], list = allItems(st.id), it = list[st.i];
-  const canMove = it.imgs.length > 1, canSay = !!it.say && 'speechSynthesis' in window;
+  const canMove = it.imgs.length > 1, canSay = !!it.say && (AUDIO['syl_' + audioSlug(it.say)] || 'speechSynthesis' in window);
   return `<div class="full lc" style="--c:${L.col}">
     ${topbar('letter', list.length > 1 ? list.length : 0, st.i)}
     <div class="main" data-swipe="1">${mouths(it)}<div class="bigsyl">${it.t}</div><p class="hint" id="hint" aria-live="polite"></p></div>
@@ -419,7 +422,7 @@ function vWords(){
     body = `<div class="pic"><img src="${PIC[w.pic]}" alt="${w.w}"></div>${wordHTML(w, st.id)}`;
   } else {
     body = `${wordHTML(w, st.id, s.j, true)}${mouths(s.it)}<p class="hint" id="hint" aria-live="polite"></p>`;
-    const canSay = !!s.it.say && 'speechSynthesis' in window;
+    const canSay = !!s.it.say && (AUDIO['syl_' + audioSlug(s.it.say)] || 'speechSynthesis' in window);
     mid = `${s.it.imgs.length > 1 ? `<button type="button" class="btn primary" data-act="move">${ICON.play}<span>Movimiento</span></button>` : ''}
       ${canSay ? `<button type="button" class="btn" data-act="say" aria-label="Escuchar">${ICON.sound}<span>Escuchar</span></button>` : ''}`;
   }
@@ -546,6 +549,7 @@ document.addEventListener('click', e => {
     case 'next': step(1); break;
     case 'move': { const it = currentItem(); if (it) playMotion(it); break; }
     case 'say': { const it = currentItem(); if (it && it.say) speak(it.say); break; }
+    case 'say-letter': { const L = BY[st.id]; if (L) speakLetter(L); break; }
     case 'region': region = b.dataset.val; store.set('boq-region', region); render(); break;
     case 'opts': nOpts = +b.dataset.val; store.set('boq-opts', String(nOpts)); render(); break;
   }
@@ -588,6 +592,21 @@ async function playMotion(it){
 }
 
 /* ================= speech ================= */
+let recordedAudio = null;
+function audioSlug(text){
+  return text.toLowerCase().replaceAll('ñ','nn').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+}
+function playAudio(key, fallback){
+  const src = AUDIO[key];
+  if (!src) { speakDevice(fallback); return; }
+  try {
+    if (recordedAudio) { recordedAudio.pause(); recordedAudio.currentTime = 0; }
+    try { speechSynthesis.cancel(); } catch(e){}
+    recordedAudio = new Audio(src);
+    recordedAudio.play().catch(() => speakDevice(fallback));
+  } catch(e) { speakDevice(fallback); }
+}
+function speakLetter(L){ playAudio('letter_' + L.id, LETTER_SAY[L.id] || L.l); }
 let voices = [];
 function loadVoices(){ try { voices = speechSynthesis.getVoices() || []; } catch(e){ voices = []; } }
 if ('speechSynthesis' in window) { loadVoices(); try { speechSynthesis.addEventListener('voiceschanged', loadVoices); } catch(e){} }
@@ -597,7 +616,8 @@ function pickVoice(){
   for (const w of want) { const v = voices.find(v => norm(v) === w); if (v) return v; }
   return voices.find(v => norm(v).toLowerCase().startsWith('es')) || null;
 }
-function speak(text){
+function speak(text){ playAudio('syl_' + audioSlug(text), text); }
+function speakDevice(text){
   try {
     const v = pickVoice(), hint = $('#hint');
     if (voices.length && !v) { if (hint) hint.textContent = 'Este dispositivo no tiene una voz en español instalada.'; return; }
