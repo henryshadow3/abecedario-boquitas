@@ -1033,5 +1033,151 @@
 "pic": "w_z_5",
 "page": 14
 }
+],
+"extra": [
+{
+"w": "AGUA",
+"syl": [
+"A",
+"GUA"
+],
+"pic": "w_extra_0"
+},
+{
+"w": "ALA",
+"syl": [
+"A",
+"LA"
+],
+"pic": "w_extra_1"
+},
+{
+"w": "AVE",
+"syl": [
+"A",
+"VE"
+],
+"pic": "w_extra_2"
+},
+{
+"w": "ELFO",
+"syl": [
+"EL",
+"FO"
+],
+"pic": "w_extra_3"
+},
+{
+"w": "ESQUÍ",
+"syl": [
+"ES",
+"QUÍ"
+],
+"pic": "w_extra_4"
+},
+{
+"w": "ECO",
+"syl": [
+"E",
+"CO"
+],
+"pic": "w_extra_5"
+},
+{
+"w": "IMÁN",
+"syl": [
+"I",
+"MÁN"
+],
+"pic": "w_extra_6"
+},
+{
+"w": "ISLA",
+"syl": [
+"IS",
+"LA"
+],
+"pic": "w_extra_7"
+},
+{
+"w": "OSO",
+"syl": [
+"O",
+"SO"
+],
+"pic": "w_extra_8"
+},
+{
+"w": "OLA",
+"syl": [
+"O",
+"LA"
+],
+"pic": "w_extra_9"
+},
+{
+"w": "UNO",
+"syl": [
+"U",
+"NO"
+],
+"pic": "w_extra_10"
+},
+{
+"w": "UÑA",
+"syl": [
+"U",
+"ÑA"
+],
+"pic": "w_extra_11"
+},
+{
+"w": "JUGO",
+"syl": [
+"JU",
+"GO"
+],
+"pic": "w_extra_12"
+},
+{
+"w": "JARRA",
+"syl": [
+"JA",
+"RRA"
+],
+"pic": "w_extra_13"
+},
+{
+"w": "KILO",
+"syl": [
+"KI",
+"LO"
+],
+"pic": "w_extra_14"
+},
+{
+"w": "KÉTCHUP",
+"syl": [
+"KÉT",
+"CHUP"
+],
+"pic": "w_extra_15"
+},
+{
+"w": "PARQUE",
+"syl": [
+"PAR",
+"QUE"
+],
+"pic": "w_extra_16"
+},
+{
+"w": "WAFLE",
+"syl": [
+"WA",
+"FLE"
+],
+"pic": "w_extra_17"
+}
 ]
 }
