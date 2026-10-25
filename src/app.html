@@ -131,6 +131,12 @@ p{margin:0}
 /* words */
 .pic{background:var(--paper);border-radius:22px;border:1px solid var(--line);padding:clamp(10px,2vw,18px);display:grid;place-items:center}
 .pic img{display:block;width:min(64vw,44vh,340px);height:min(64vw,44vh,340px);object-fit:contain}
+/* toque en una imagen = verla en grande */
+img[data-zoom]{cursor:zoom-in}
+.zoom{position:fixed;inset:0;z-index:60;background:rgba(20,22,28,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;cursor:zoom-out;animation:fade .2s}
+.zoom img{width:min(96vw,1100px);height:min(78vh,96vw);object-fit:contain;border-radius:20px;background:#fff}
+.zoom b{font-family:var(--f-letter);font-size:clamp(1.6rem,6vw,2.6rem);color:#fff}
+.zoom .icon-btn{position:absolute;top:max(12px,env(safe-area-inset-top));right:12px;color:var(--ink)}
 .word{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:.1em .25em;font-family:var(--f-letter);font-weight:700;font-size:clamp(2.4rem,min(11vw,8vh),4.6rem);line-height:1.1}
 .word .s{color:var(--muted);padding:0 .12em;border-radius:12px}
 .word .s.t{color:var(--lk)}
@@ -242,18 +248,25 @@ const BY = Object.fromEntries(LETTERS.map(L => [L.id, L]));
 const LETTER_SAY = {a:'a',b:'be',c:'ce',ch:'che',d:'de',e:'e',f:'efe',g:'ge',h:'hache',i:'i',j:'jota',k:'ka',l:'ele',ll:'elle',m:'eme',n:'ene',nn:'eñe',o:'o',p:'pe',q:'cu',r:'erre',rr:'erre fuerte',s:'ese',t:'te',u:'u',v:'uve',w:'doble u',x:'equis',y:'ye',z:'zeta'};
 
 /* ================= data: words (from each lámina) ================= */
-// which words each letter shows: a lámina key (all its words) or {lámina: [words]}
+// which words each letter shows: a lámina key (all its words) or {lámina: [words]}.
+// Solo palabras cortas (dos sílabas como máximo) para niños que apenas empiezan a hablar.
+// "extra" son pictogramas de ARASAAC añadidos después de las láminas originales.
 const WL = {
-  a:{vocales:['AVIÓN']}, e:{vocales:['ELEFANTE']}, i:{vocales:['IGLÚ']}, o:{vocales:['OVEJA']}, u:{vocales:['UVAS']},
-  b:'b', c:{c:['CASA','CAMA','COPA','CUNA'], z:['CEJA','CEBRA']}, ch:{ch:['CHAPA','COCHE','CHICLE','FICHA','NOCHE']},
-  d:'d', f:'f', g:{g:['GATO','GOTA','GAFAS','GORRO'], j:['GENIO','GIRASOL','GEMELOS']}, j:{j:['AJO','OJO','JIRAFA']},
-  k:'k', l:'l', ll:'ll', m:'m', n:'n', nn:'nn', p:'p', q:{c:['QUESO']}, r:'r', rr:'rr', s:'s', t:'t', v:'v',
-  w:{k:['KIWI']}, z:{z:['ZORRO','ZUMO','TAZA','ZAPATO']}
+  a:{extra:['AGUA','ALA','AVE']}, e:{extra:['ELFO','ESQUÍ','ECO']}, i:{vocales:['IGLÚ'], extra:['IMÁN','ISLA']},
+  o:{extra:['OSO','OLA'], j:['OJO']}, u:{vocales:['UVAS'], extra:['UNO','UÑA']},
+  b:{b:['BOCA','BEBÉ','BOTA','LOBO']}, c:{c:['CASA','CAMA','COPA','CUNA'], z:['CEJA','CEBRA']}, ch:{ch:['CHAPA','COCHE','CHICLE','FICHA','NOCHE']},
+  d:{d:['DADO','DEDO','NIDO','DUCHA']}, f:{f:['FOTO','FARO','SOFÁ','CAFÉ']}, g:{g:['GATO','GOTA','GAFAS','GORRO'], j:['GENIO']},
+  j:{j:['AJO','OJO'], extra:['JUGO','JARRA']}, k:{k:['KIWI'], extra:['KILO','KÉTCHUP']},
+  l:{l:['LUPA','LATA','PALA','PALO']}, ll:{ll:['LLAVE','LLENO','LLUVIA','LLORA']}, m:{m:['MAMÁ','MANO','MONO','CAMA']},
+  n:'n', nn:{nn:['PIÑA','PAÑO','CAÑA','NIÑA']}, p:{p:['PIPÍ','PIPA','PAPÁ','PUPA']},
+  q:{c:['QUESO'], extra:['PARQUE','ESQUÍ']}, r:{r:['PERA','ARO','PURO','CARA']}, rr:'rr',
+  s:{s:['SAPO','SETA','SILLA','SOPA']}, t:{t:['PATO','PITO','TOPO','TÍA','TAPA']}, v:'v',
+  w:{k:['KIWI'], extra:['WAFLE']}, z:{z:['ZORRO','ZUMO','TAZA']}
 };
 const strip = s => s.replace(/[ÁÉÍÓÚÜ]/g, c => 'AEIOUU'['ÁÉÍÓÚÜ'.indexOf(c)]);
 function isTarget(id, syl, idx){
   const T = strip(syl), L = BY[id];
-  if (L.kind === 'vowel') return T === L.U;
+  if (L.kind === 'vowel') return T.startsWith(L.U);
   switch (id) {
     case 'c': return /^C[AEIOU]/.test(T);
     case 'g': return /^G[AEIOU]/.test(T);
@@ -268,7 +281,9 @@ function isTarget(id, syl, idx){
 function itemFor(id, syl){
   let key = strip(syl);
   if (id === 'rr' && !key.startsWith('RR')) key = 'R' + key;
-  return allItems(id).find(it => it.t === key) || null;
+  const items = allItems(id);
+  // sílaba exacta; si no (KÉT, ES, PAR…), la que empieza igual: la boca es la de la sílaba directa
+  return items.find(it => it.t === key) || items.find(it => key.startsWith(it.t)) || null;
 }
 function wordsFor(id){
   const spec = WL[id]; if (!spec) return [];
@@ -324,7 +339,7 @@ const $ = s => document.querySelector(s);
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const altFor = (it, k) => `Boca para ${it.t}: ${it.labels[k]}`;
 const frames = (it, on = -1) => it.imgs.map((k, i) =>
-  `<span class="fr${i === on ? ' on' : ''}"><img src="${IMG[k]}" alt="${altFor(it, i)}" draggable="false"><b>${it.labels[i]}</b></span>`).join(ICON.arrow);
+  `<span class="fr${i === on ? ' on' : ''}"><img src="${IMG[k]}" alt="${altFor(it, i)}" draggable="false" data-zoom><b>${it.labels[i]}</b></span>`).join(ICON.arrow);
 const mouths = (it, cls = '') => `<div class="mouths${it.imgs.length === 1 ? ' one' : ''} ${cls}" id="row" style="--n:${it.imgs.length}">${frames(it)}</div>`;
 const dots = (n, i) => `<div class="dots" role="img" aria-label="${i + 1} de ${n}">${Array.from({length:n}, (_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}"></i>`).join('')}</div>`;
 const topbar = (back, n, i) => `<div class="tb"><button type="button" class="icon-btn" data-act="${back}" aria-label="Volver">${ICON.back}</button>${n ? dots(n, i) : '<span></span>'}<span></span></div>`;
@@ -336,7 +351,7 @@ function setHash(){
   try { history.replaceState(null, '', st.v === 'home' ? location.pathname + location.search : '#' + h); } catch(e){}
 }
 function go(v, id = st.id, i = 0, k = 0){
-  stopMotion(); try { speechSynthesis.cancel(); } catch(e){}
+  stopMotion(); closeZoom(); try { speechSynthesis.cancel(); } catch(e){}
   st = {v, id, i, k}; setHash(); render();
 }
 
@@ -356,8 +371,8 @@ function vHome(){
 
 function vLetter(){
   const L = BY[st.id], b = built(st.id), hasWords = wordsFor(st.id).length > 0;
-  const pic = b.post ? `<img src="${IMG[b.post]}" alt="Posición de la boca para la ${L.U}">`
-            : L.kind === 'vowel' ? `<img src="${IMG['voc_' + L.id]}" alt="Boca para la ${L.U}">` : '';
+  const pic = b.post ? `<img src="${IMG[b.post]}" alt="Posición de la boca para la ${L.U}" data-zoom>`
+            : L.kind === 'vowel' ? `<img src="${IMG['voc_' + L.id]}" alt="Boca para la ${L.U}" data-zoom>` : '';
   const choice = (act, ico, label) => `<button type="button" class="choice" data-act="${act}"><span class="ico">${ico}</span>${label}</button>`;
   return `<div class="narrow lc" style="--c:${L.col}">
     <div class="bar"><button type="button" class="btn" data-act="home">${ICON.back}Abecedario</button>
@@ -424,7 +439,7 @@ function vWords(){
   const atStart = st.i === 0 && st.k === 0, atEnd = st.i === ws.length - 1 && st.k === steps.length - 1;
   let body, mid = '';
   if (s.type === 'pic') {
-    body = `<div class="pic"><img src="${PIC[w.pic]}" alt="${w.w}"></div>${wordHTML(w, st.id)}`;
+    body = `<div class="pic"><img src="${PIC[w.pic]}" alt="${w.w}" data-zoom></div>${wordHTML(w, st.id)}`;
   } else {
     body = `${wordHTML(w, st.id, s.j, true)}${mouths(s.it)}<p class="hint" id="hint" aria-live="polite"></p>`;
     const canSay = !!s.it.say && (AUDIO['syl_' + audioSlug(s.it.say)] || 'speechSynthesis' in window);
@@ -536,7 +551,20 @@ function pick(k){
     }, 1300);
   } else { g.wrong.add(k); render(); }
 }
+/* ================= zoom: imagen ampliada ================= */
+function closeZoom(){ const z = $('#zoom'); if (z) z.remove(); }
+function openZoom(img){
+  closeZoom();
+  const label = img.closest('.fr') ? img.closest('.fr').querySelector('b') : null;
+  const z = document.createElement('div');
+  z.id = 'zoom'; z.className = 'zoom'; z.setAttribute('role', 'dialog'); z.setAttribute('aria-label', 'Imagen ampliada');
+  z.innerHTML = `<button type="button" class="icon-btn" aria-label="Cerrar">${ICON.close}</button><img src="${img.src}" alt="${img.alt}">${label ? `<b>${label.textContent}</b>` : ''}`;
+  z.addEventListener('click', closeZoom);
+  document.body.appendChild(z);
+}
 document.addEventListener('click', e => {
+  const zi = e.target.closest('img[data-zoom]');
+  if (zi && !e.target.closest('#zoom')) { openZoom(zi); return; }
   const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
   const a = b.dataset.act;
   switch (a) {
@@ -560,6 +588,7 @@ document.addEventListener('click', e => {
   }
 });
 document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeZoom();
   if (st.v !== 'syl' && st.v !== 'words') return;
   if (e.key === 'ArrowRight') step(1); else if (e.key === 'ArrowLeft') step(-1);
 });
@@ -585,7 +614,7 @@ async function playMotion(it){
   for (let round = 0; round < 2; round++) {
     for (let k = 0; k < it.imgs.length; k++) {
       if (token !== motionToken || !row.isConnected) return;
-      row.innerHTML = `<span class="fr on${reduce ? '' : ' fade'}"><img src="${IMG[it.imgs[k]]}" alt="${altFor(it, k)}"><b>${it.labels[k]}</b></span>`;
+      row.innerHTML = `<span class="fr on${reduce ? '' : ' fade'}"><img src="${IMG[it.imgs[k]]}" alt="${altFor(it, k)}" data-zoom><b>${it.labels[k]}</b></span>`;
       if (hint) hint.textContent = `${k + 1} de ${it.imgs.length}`;
       await wait(k === it.imgs.length - 1 ? 1300 : 1000);
     }

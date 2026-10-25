@@ -8,7 +8,7 @@ Está pensada para niños autistas: cada pantalla muestra una sola cosa, los jue
 
 - **Abecedario**: las 30 letras del español, incluidas CH, LL, Ñ y RR.
 - **Sílabas**: una por pantalla. Se ve la boca de la consonante y luego la de la vocal (P → A = PA). Incluye un botón de movimiento y audios locales de voz femenina mexicana; si falta un audio, usa la voz del dispositivo como respaldo.
-- **Palabras**: 108 palabras del material, cada una con su pictograma. Primero sale el dibujo y luego la boquita de cada sílaba de esa letra.
+- **Palabras**: palabras cortas (dos sílabas como máximo), cada una con su pictograma; las vocales tienen tres. Salen de las láminas originales y de pictogramas de ARASAAC añadidos después (clave `extra` en `words.json`). Primero sale el dibujo y luego la boquita de cada sílaba de esa letra. Las palabras largas del material siguen en `words.json`, pero no se muestran: la lista de cada letra está en `WL` de `src/app.html`.
 - **Juegos**: «¿Qué dice la boca?» y «¿Cuál es la boca?». Son 5 preguntas con 2 o 3 opciones y se pueden repetir las veces que haga falta.
 - **Ajustes**: pronunciación de México y Latinoamérica o de España (cambia CE, CI y Z) y número de opciones en los juegos.
 
@@ -22,11 +22,15 @@ Está pensada para niños autistas: cada pantalla muestra una sola cosa, los jue
 index.html                 App ya construida (se genera con scripts/build.py)
 src/app.html               Código fuente de la app (HTML + CSS + JS)
 assets/bocas/              125 fotos de bocas extraídas de las láminas
-assets/pictogramas/        108 pictogramas + words.json (palabra, sílabas, imagen)
+assets/pictogramas/        126 pictogramas + words.json (palabra, sílabas, imagen)
 scripts/                   Descarga de PDFs, extracción de imágenes y build
 ```
 
 En `assets/bocas`, `p_0.jpg` es la posición de la P y `p_a.jpg` a `p_u.jpg` son PA a PU. Las vocales solas están en `voc_a.jpg` a `voc_u.jpg`.
+
+## Agregar palabras con pictogramas de ARASAAC
+
+`scripts/add_arasaac_words.sh assets/pictogramas` descarga los pictogramas listados en el script (id de ARASAAC), los recorta y los guarda como `w_extra_N.jpg`. Después registra cada palabra en `words.json` (clave `extra`, con sus sílabas) y agrégala a la lista de su letra en `WL` de `src/app.html`. Requiere `curl` y `ffmpeg`.
 
 ## Reconstruir la app
 
